@@ -28,7 +28,14 @@
          <router-link to='/Navbar'>
          <mt-button type='primary' size='large'>navbar页面</mt-button></router-link>
      </li>
-     
+    <li>
+         <router-link to='/index'>
+         <mt-button type='primary' size='large'>index页面</mt-button></router-link>
+    </li>
+      <li>
+         <router-link to='/article'>
+         <mt-button type='primary' size='large'>article页面</mt-button></router-link>
+    </li>
  </ul>
      </div>
 </template>;

@@ -28,6 +28,16 @@ const routes = [
     path:'/Navbar',
     name:'Navbar',
     component:()=>import('../components/Navbar.vue')
+  },
+  {
+    path:'/index',
+    name:'index',
+    component:()=>import('../components/index.vue')
+  },
+  {
+    path:'/article/:id',
+    name:'article',
+    component:()=>import('../components/Article.vue')
   }
 ]
 
