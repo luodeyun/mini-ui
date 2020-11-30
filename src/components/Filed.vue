@@ -27,9 +27,9 @@
               }
           },watch: {
               username(){
-                  if(this.username.length=='3'){
-                      this.state='warning'
-                  }
+                  if(this.username.length>='8'){
+                      this.state='success'
+                  }else{this.state=''}
               }
           },
         

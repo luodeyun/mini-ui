@@ -12,11 +12,23 @@
 </mt-header>
 <mt-button ></mt-button>
  <ul  style='margin:0'>
-     <li>1</li>
-     <li>2</li>
-     <li>3</li>
-     <li>4</li>
-     <li>5</li>
+     <li>
+         <router-link to='/register'>
+         <mt-button type='primary' size='large'>登录页面</mt-button></router-link>
+     </li>
+     <li>
+         <router-link to='/button'>
+         <mt-button type='primary' size='large'>BUTTON页面</mt-button></router-link>
+     </li>
+     <li>
+         <router-link to='/Filed'>
+         <mt-button type='danger' size='large'>表单页面</mt-button></router-link>
+     </li>
+       <li>
+         <router-link to='/Navbar'>
+         <mt-button type='primary' size='large'>navbar页面</mt-button></router-link>
+     </li>
+     
  </ul>
      </div>
 </template>;
@@ -31,6 +43,9 @@
  <style>
    ul{
        margin-top:40px;
+   }
+   ul li{
+       margin-top:20px
    }
 
 </style>

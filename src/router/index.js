@@ -23,6 +23,11 @@ const routes = [
     path:'/register',
     name:'Register',
     component:()=>import('../components/Register.vue')
+  },
+  {
+    path:'/Navbar',
+    name:'Navbar',
+    component:()=>import('../components/Navbar.vue')
   }
 ]
 
