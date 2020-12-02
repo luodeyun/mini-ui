@@ -17,6 +17,12 @@
   <!-- 顶部选项卡结束 -->
    </div>
   <!-- 面板区域开始 -->
+  <div class ='main' 
+         v-infinite-scroll="loadMore"
+  infinite-scroll-disabled="loading"
+  infinite-scroll-distance="10"
+         infinite-scroll-immediate-check=true
+          >
    <mt-tab-container class='main'>
        <mt-tab-container-item >
         <div class="articleItem" v-for="(item, index) of articles " :key="index"   >
@@ -42,11 +48,8 @@
           </router-link>
           <!-- 文章图文信息结束 -->
         </div>
-       </mt-tab-container-item> 
-          
-     
-     
-   </mt-tab-container>
+       </mt-tab-container-item>          
+   </mt-tab-container></div>
   <!-- 面板区域结束 -->
 
   <!-- 底部选项卡start -->
@@ -65,40 +68,58 @@ export default {
       active: "1",
       selectedTab: "index",
       category: [],
-      articles: []
+      articles: [],
+      page:1,
+    loading : false
     };
   },
+  methods: {
+    loadMore() {
+      this.loading=true
+      this.page++;
+     this.axios
+        .get("http://localhost:3001/articles", {
+          params: { 
+            id: this.active, 
+            page:this.page 
+          }
+        })
+        .then(res => {
+           this.articles = res.data.results;
+           console.log('现在要去服务器获取第二页数据',this.page);
+           this.loading=false
+      })
+  }},
   mounted() {
     this.axios({
       method: "GET",
       url: "http://localhost:3001/haha"
     }).then(res => {
-  
       this.category = res.data.results;
     });
     this.axios
       .get("http://localhost:3001/articles", {
-        params: { id: this.active }
+        params: { 
+          id: this.active, 
+          page:this.page  
+        }
       })
       .then(res => {
         this.articles = res.data.results;
-        
       });
   },
   watch: {
     active(neval){
+      this.page=1
       this.axios.get('http://localhost:3001/articles',{
-        params:{id:neval}
+        params:{id:neval,page:this.page}
       }).then(res=>{
         this.atcicles=[]
          this.articles = res.data.results;
-              
       })
-
-      
-
-    }
+    } 
   }
+  
 };
 </script>
  <style scoped>
