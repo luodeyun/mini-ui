@@ -31,13 +31,18 @@ const routes = [
   },
   {
     path:'/index',
-    name:'index',
-    component:()=>import('../components/index.vue')
+    name:'Index',
+    component:()=>import('../components/Index.vue')
   },
   {
     path:'/article/:id',
     name:'article',
     component:()=>import('../components/Article.vue')
+  },
+  {
+    path:'/infinite',
+    name:'infinite',
+    component:()=>import('../components/Infinite.vue')
   }
 ]
 

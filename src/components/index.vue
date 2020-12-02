@@ -11,46 +11,41 @@
   <!-- 顶部导航结束 -->
 
   <!-- 顶部选项卡开始 -->
-     <mt-navbar v-model="active">
-          <mt-tab-item id='1'><h1>推荐</h1 ></mt-tab-item>
-          <mt-tab-item id='2'><h1>生活</h1></mt-tab-item>
-          <mt-tab-item id='3'><h1>娱乐</h1></mt-tab-item>
-          <mt-tab-item id='4'><h1>汽车</h1></mt-tab-item>
-       </mt-navbar>
+     <mt-navbar v-model="active" > 
+          <mt-tab-item :id='`${index+1}`' v-for="(item,index) of category" :key='index'>{{item.category_name}}</mt-tab-item>
+      </mt-navbar>
   <!-- 顶部选项卡结束 -->
    </div>
   <!-- 面板区域开始 -->
-   <mt-tab-container v-model="active" class='main'>
-       <mt-tab-container-item id='1'>
-             <div class="articleItem" v-for="(v,k) of 10" :key='k'>
+   <mt-tab-container class='main'>
+       <mt-tab-container-item >
+        <div class="articleItem" v-for="(item, index) of articles " :key="index"   >
+           <router-link :to="`/article/${index}`">
           <!-- 文章标题开始 -->
-          <div class="articleItem-header">
-            税后年薪十万、二十万、三十万的汽车工程师的真实生活
-          </div>
+              <div class="articleItem-header">
+                  {{item.subject}}
+              </div>
           <!-- 文章标题结束 -->
           <!-- 文章图文信息开始 -->
-          <router-link :to="`/article/${k}`">
-          <div class="articleItem-wrapper" >
+              <div class="articleItem-wrapper" >
             <!-- 文章图像开始  -->
-            <div class="articleImg">
-              <img
-                src="../assets/11.jpg"
-              />
-            </div>
+                     <div class="articleImg">
+                       <img v-lazy="`/articles/${item.image}`"/>
+             </div>
             <!-- 文章图像结束 -->
             <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
+              <div class="artic leDes">
+                {{item.description}}
+              </div>
             <!-- 文章简介结束 -->
-          </div>
+             </div>
           </router-link>
           <!-- 文章图文信息结束 -->
         </div>
-       </mt-tab-container-item>
-       <mt-tab-container-item id='2'>2</mt-tab-container-item>
-       <mt-tab-container-item id='3'>3</mt-tab-container-item>
-       <mt-tab-container-item id='4'>4</mt-tab-container-item>
+       </mt-tab-container-item> 
+          
+     
+     
    </mt-tab-container>
   <!-- 面板区域结束 -->
 
@@ -68,14 +63,47 @@ export default {
   data() {
     return {
       active: "1",
-      selectedTab: "index"
+      selectedTab: "index",
+      category: [],
+      articles: []
     };
+  },
+  mounted() {
+    this.axios({
+      method: "GET",
+      url: "http://localhost:3001/haha"
+    }).then(res => {
+  
+      this.category = res.data.results;
+    });
+    this.axios
+      .get("http://localhost:3001/articles", {
+        params: { id: this.active }
+      })
+      .then(res => {
+        this.articles = res.data.results;
+        
+      });
+  },
+  watch: {
+    active(neval){
+      this.axios.get('http://localhost:3001/articles',{
+        params:{id:neval}
+      }).then(res=>{
+        this.atcicles=[]
+         this.articles = res.data.results;
+              
+      })
+
+      
+
+    }
   }
 };
 </script>
  <style scoped>
 #add {
-    width: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .shortcut a {
@@ -93,7 +121,7 @@ export default {
 .main {
   margin-top: 90px;
   margin-bottom: 55px;
-  overflow:scroll;
+  /* overflow: scroll; */
 }
 .articleItem-header {
   font-weight: 600;

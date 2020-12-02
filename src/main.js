@@ -7,6 +7,7 @@ import axios from 'axios'
 import 'mint-ui/lib/style.min.css';  //导入样式文件 
 Vue.use(Mint)
 
+Vue.prototype.axios = axios
 
 Vue.config.productionTip = false
 

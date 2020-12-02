@@ -36,6 +36,10 @@
          <router-link to='/article'>
          <mt-button type='primary' size='large'>article页面</mt-button></router-link>
     </li>
+     <li>
+         <router-link to='/Infinite'>
+         <mt-button type='primary' size='large'>nifinite页面</mt-button></router-link>
+    </li>
  </ul>
      </div>
 </template>;
